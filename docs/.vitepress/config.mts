@@ -4,7 +4,8 @@ export default defineConfig({
   lang: 'zh-TW',
   title: 'Daily Report',
   description: '每日工作日報',
-  base: '/dailyreport/',
+  // GitHub Pages 在子路徑 /dailyreport/，由 workflow 傳入 BASE；Cloudflare 等根網域部署用預設 '/'
+  base: process.env.BASE || '/',
   lastUpdated: true,
   cleanUrls: true,
   srcExclude: ['**/_template.md'],

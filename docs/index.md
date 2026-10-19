@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: Daily Report
-  tagline: 每日工作日報
+  tagline: 每天一篇的日報
   actions:
     - theme: brand
       text: 查看日報
@@ -13,10 +13,10 @@ hero:
       link: https://github.com/mengtienchang/dailyreport
 
 features:
-  - title: 今日進度
-    details: 記錄當天完成的工作項目與產出。
-  - title: 問題與阻礙
-    details: 追蹤卡關的地方與需要協助的事項。
-  - title: 明日計畫
-    details: 列出下一個工作日的待辦與優先順序。
+  - title: 每天一篇
+    details: 一天一頁，記下當天的事。
+  - title: 依日期瀏覽
+    details: 從側邊欄按年月找到任何一天。
+  - title: 全文搜尋
+    details: 用右上角的搜尋找回過去寫過的內容。
 ---

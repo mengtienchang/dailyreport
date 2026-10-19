@@ -1,0 +1,29 @@
+/* Claude 的提醒：被提醒的句子畫橘色底線，段落後面接 ::: claude 提醒框 */
+:root {
+  --claude-c-text: #c2410c;
+  --claude-c-line: #ea580c;
+  --claude-c-soft: rgba(234, 88, 12, 0.08);
+}
+
+.dark {
+  --claude-c-text: #fdba74;
+  --claude-c-line: #fb923c;
+  --claude-c-soft: rgba(251, 146, 60, 0.12);
+}
+
+.custom-block.claude-note {
+  border-color: var(--claude-c-line);
+  background-color: var(--claude-c-soft);
+  color: var(--vp-c-text-1);
+}
+
+.custom-block.claude-note .custom-block-title {
+  color: var(--claude-c-text);
+}
+
+.claude-mark {
+  text-decoration: underline wavy var(--claude-c-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  text-decoration-skip-ink: none;
+}

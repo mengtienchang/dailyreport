@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import container from 'markdown-it-container'
 
 export default defineConfig({
   lang: 'zh-TW',
@@ -7,6 +8,20 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
   srcExclude: ['**/_template.md'],
+
+  markdown: {
+    config(md) {
+      // ::: claude [標題] … ::: → Claude 的橘色提醒框，樣式在 theme/custom.css
+      md.use(container, 'claude', {
+        render(tokens, idx) {
+          const token = tokens[idx]
+          if (token.nesting !== 1) return '</div>\n'
+          const title = token.info.trim().slice('claude'.length).trim() || 'Claude 溫馨提醒'
+          return `<div class="claude-note custom-block"><p class="custom-block-title">${md.utils.escapeHtml(title)}</p>\n`
+        }
+      })
+    }
+  },
 
   themeConfig: {
     nav: [

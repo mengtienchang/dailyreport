@@ -1,8 +1,6 @@
 # Daily Report
 
-用 [VitePress](https://vitepress.dev) 建的每日日報站，push 到 `main` 後由 GitHub Actions 自動部署到 GitHub Pages：
-
-https://mengtienchang.github.io/dailyreport/
+用 [VitePress](https://vitepress.dev) 建的日報站，push 到 `main` 後由 Cloudflare Workers 自動構建並部署（設定見 `wrangler.jsonc`）。
 
 ## 本機開發
 

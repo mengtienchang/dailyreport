@@ -33,6 +33,25 @@ export default defineConfig({
         }
       })
 
+      // ::: comment N … ::: → 文章底部的 Claude 留言，id 是 comment-N。
+      // 正文裡被留言的句子寫成 <a class="claude-mark" id="ref-N" href="#comment-N">原句</a>，兩邊互相連結
+      md.use(container, 'comment', {
+        render(tokens, idx) {
+          const token = tokens[idx]
+          if (token.nesting !== 1) return '</div></div>\n'
+          const n = /^comment\s+(\d+)/.exec(token.info.trim())?.[1]
+          const id = n ? ` id="comment-${n}"` : ''
+          const jump = n ? `<a class="claude-comment-jump" href="#ref-${n}">回到原文 ↑</a>` : ''
+          return (
+            `<div class="claude-comment"${id}>` +
+            `<div class="claude-comment-avatar" aria-hidden="true">C</div>` +
+            `<div class="claude-comment-body">` +
+            `<p class="claude-comment-meta"><span class="claude-comment-name">Claude</span>` +
+            `<span class="claude-comment-role">技術編輯</span>${jump}</p>\n`
+          )
+        }
+      })
+
       // 日報的 # 主題 下面自動加上日期副標和分類，日期取自檔名、分類取自 frontmatter 的 tag
       md.core.ruler.push('report-date', (state) => {
         const label = reportDateLabel(state.env?.relativePath ?? '')

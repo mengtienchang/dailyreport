@@ -68,3 +68,95 @@
 .report-list-date {
   white-space: nowrap;
 }
+
+/* 正文裡被留言的句子是連到留言的 <a class="claude-mark">，外觀維持一般文字加橘色波浪底線 */
+.vp-doc a.claude-mark {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline wavy var(--claude-c-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  text-decoration-skip-ink: none;
+}
+
+.vp-doc a.claude-mark:hover {
+  color: var(--claude-c-text);
+}
+
+/* 文章底部的 Claude 留言（::: comment N），版面仿留言區：頭像、名字、引用原句、內容 */
+.claude-comment {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.claude-comment-avatar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--claude-c-line);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.claude-comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.vp-doc .claude-comment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.claude-comment-name {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.claude-comment-role {
+  padding: 0 8px;
+  border-radius: 999px;
+  background-color: var(--claude-c-soft);
+  color: var(--claude-c-text);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.vp-doc a.claude-comment-jump {
+  margin-left: auto;
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.vp-doc a.claude-comment-jump:hover {
+  color: var(--claude-c-text);
+}
+
+.vp-doc .claude-comment blockquote {
+  margin: 0 0 8px;
+  padding-left: 12px;
+  border-left: 2px solid var(--claude-c-line);
+}
+
+.vp-doc .claude-comment blockquote > p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .claude-comment-body > p:not(.claude-comment-meta) {
+  margin: 8px 0 0;
+}

@@ -1,11 +1,23 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type DefaultTheme } from 'vitepress'
 import container from 'markdown-it-container'
+import { getReports, reportDateLabel } from './reports'
+import { tagBadge } from './tags'
+
+// 側邊欄依月份分組，新的在上面
+function reportsSidebar(): DefaultTheme.SidebarItem[] {
+  const months = new Map<string, DefaultTheme.SidebarItem[]>()
+  for (const r of getReports()) {
+    const month = r.date.slice(0, 7).replace('-', ' / ')
+    if (!months.has(month)) months.set(month, [])
+    months.get(month)!.push({ text: r.title, link: r.link })
+  }
+  return [...months].map(([text, items]) => ({ text, items }))
+}
 
 export default defineConfig({
   lang: 'zh-TW',
   title: 'Daily Report',
   description: '每日日報',
-  lastUpdated: true,
   cleanUrls: true,
   srcExclude: ['**/_template.md'],
 
@@ -20,6 +32,17 @@ export default defineConfig({
           return `<div class="claude-note custom-block"><p class="custom-block-title">${md.utils.escapeHtml(title)}</p>\n`
         }
       })
+
+      // 日報的 # 主題 下面自動加上日期副標和分類，日期取自檔名、分類取自 frontmatter 的 tag
+      md.core.ruler.push('report-date', (state) => {
+        const label = reportDateLabel(state.env?.relativePath ?? '')
+        if (!label) return
+        const i = state.tokens.findIndex((t) => t.type === 'heading_close' && t.tag === 'h1')
+        if (i === -1) return
+        const token = new state.Token('html_block', '', 0)
+        token.content = `<p class="report-date">${label}${tagBadge(state.env.frontmatter?.tag)}</p>\n`
+        state.tokens.splice(i + 1, 0, token)
+      })
     }
   },
 
@@ -30,14 +53,7 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/reports/': [
-        {
-          text: '2026 / 10',
-          items: [
-            { text: '10/19', link: '/reports/2026-10-19' }
-          ]
-        }
-      ]
+      '/reports/': reportsSidebar()
     },
 
     socialLinks: [
@@ -47,8 +63,8 @@ export default defineConfig({
     search: { provider: 'local' },
 
     outline: { label: '本頁目錄' },
-    docFooter: { prev: '上一篇', next: '下一篇' },
-    lastUpdated: { text: '最後更新' },
+    // 側邊欄新的在上面，所以 prev 是較新的、next 是較舊的
+    docFooter: { prev: '較新的日報', next: '較舊的日報' },
     returnToTopLabel: '回到頂部',
     sidebarMenuLabel: '選單',
     darkModeSwitchLabel: '外觀'

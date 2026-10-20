@@ -48,4 +48,4 @@ argument-hint: "[日報檔案路徑，預設是今天的日報]"
 - 執行 `npm run docs:build`，確認構建成功。
 - 跟作者說可以用 `npm run docs:dev` 在本機預覽。
 - 不要自動 commit 或 push，等作者說。
-- 作者要發布時：如果是新的一篇，同時在 `docs/.vitepress/config.mts` 的 sidebar 和 `docs/reports/index.md` 的列表加上這篇。然後 commit、push 到 `main`，Cloudflare 會自動部署。
+- 作者要發布時，commit、push 到 `main`，Cloudflare 會自動部署。側邊欄、日報列表和日期副標都是依檔名和 `# 主題` 自動產生的，不用手動加。

@@ -1,2 +1,6 @@
-# YYYY-MM-DD 日報
+---
+tag: # why、what 或 how
+---
+
+# 主題
 
